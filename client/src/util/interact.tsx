@@ -5,6 +5,12 @@ const web3 = createAlchemyWeb3(alchemyKey);
 const contractABI = require("../contract-abi.json");
 const contractAddress = process.env.REACT_APP_CONTRACT_ADDRESS;
 
+declare global {
+	interface Window {
+		ethereum: any
+	}
+}
+
 export const helloWorldContract = new web3.eth.Contract(
 	contractABI.abi,
 	contractAddress
@@ -21,7 +27,7 @@ export const connectWallet = async () => {
 			  address: addressArray[0],
 			};
 			return obj;
-		} catch (err) {
+		} catch (err: any) {
 			return {
 			  address: "",
 			  status: "😥 " + err.message,
@@ -63,7 +69,7 @@ export const getCurrentWalletConnected = async () => {
 			    status: "🦊 Connect to Metamask using the top right button.",
 			  };
 			}
-		} catch (err) {
+		} catch (err: any) {
 			return {
 			  address: "",
 			  status: "😥 " + err.message,
@@ -88,7 +94,7 @@ export const getCurrentWalletConnected = async () => {
 	}
 };
 
-export const updateMessage = async (address, bookName, authorName) => {
+export const updateMessage = async (address: string, bookName: string, authorName: string) => {
 	if (!window.ethereum || address === null) {
 		return {
 		  status:
@@ -131,7 +137,7 @@ export const updateMessage = async (address, bookName, authorName) => {
 				</span>
 			),
 		};
-	} catch (error) {
+	} catch (error: any) {
 		return {
 			status: "😥 " + error.message,
 		};
@@ -147,7 +153,7 @@ export const getBooks = async() => {
 	}
 
 	const res = await helloWorldContract.methods.findBook().call()
-	return res.map(b => {
+	return res.map((b: any) => {
 		return {
 			name: b.name,
 			author: b.author,

@@ -1,14 +1,14 @@
-import React from "react";
+import React, { ReactElement } from "react";
 import { useEffect, useState } from "react";
-import {helloWorldContract, connectWallet, updateMessage, getCurrentWalletConnected} from "./util/interact.js";
+import {helloWorldContract, connectWallet, updateMessage, getCurrentWalletConnected} from "./util/interact";
 
 import alchemylogo from "./alchemylogo.svg";
-import BookList from "./components/BookList.js";
+import BookList from "./components/BookList";
 
 const HelloWorld = () => {
   //state variables
   const [walletAddress, setWallet] = useState("");
-  const [status, setStatus] = useState("");
+  const [status, setStatus] = useState<string|ReactElement>("");
   const [message, setMessage] = useState("No connection to the network."); //default message
   const [newBookName, setNewBookName] = useState("");
   const [newAuthorName, setNewAuthorName] = useState("");
@@ -27,7 +27,7 @@ const HelloWorld = () => {
   }, []);
 
   function addSmartContractListener() {
-    helloWorldContract.events.NewBook({}, (error, data) => {
+    helloWorldContract.events.NewBook({}, (error: any, data: any) => {
       if (error) {
         setStatus("😥 " + error.message);
       } else {
@@ -40,7 +40,7 @@ const HelloWorld = () => {
 
   function addWalletListener() {
     if (window.ethereum) {
-      window.ethereum.on("accountsChanged", (accounts) => {
+      window.ethereum.on("accountsChanged", (accounts: any) => {
         if (accounts.length > 0) {
           setWallet(accounts[0]);
           setStatus("👆🏽 Write a message in the text-field above.");
@@ -51,7 +51,8 @@ const HelloWorld = () => {
       });
     } else {
       setStatus(
-        <p>
+        <>
+          <p>
           {" "}
           🦊{" "}
           <a target="_blank" href={`https://metamask.io/download`}>
@@ -59,6 +60,8 @@ const HelloWorld = () => {
             browser.
           </a>
         </p>
+        </>
+        
       );
     }
   }

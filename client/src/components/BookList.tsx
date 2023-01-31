@@ -14,7 +14,7 @@ const BookList = () => {
 	}, []);
 
 	const booksElm = useMemo(() => {
-		return books.map(b => {
+		return books.map((b: any) => {
 		  return (
 		    <>
 		      <li>{b.name} ({b.author})</li>

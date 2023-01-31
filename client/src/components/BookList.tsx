@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
+import { Link } from "react-router-dom";
 import { getBooks } from "../util/interact";
 
 const BookList = () => {
@@ -17,7 +18,7 @@ const BookList = () => {
 		return books.map((b: any) => {
 		  return (
 		    <>
-		      <li>{b.name} ({b.author})</li>
+		      <li><Link to={""}>{b.name}</Link> ({b.author})</li>
 		    </>
 		  )
 		})

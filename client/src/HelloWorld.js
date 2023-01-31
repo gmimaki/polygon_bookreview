@@ -1,6 +1,6 @@
 import React from "react";
 import { useEffect, useState } from "react";
-import {helloWorldContract, connectWallet, updateMessage, loadCurrentMessage, getCurrentWalletConnected} from "./util/interact.js";
+import {helloWorldContract, connectWallet, updateMessage, getCurrentWalletConnected} from "./util/interact.js";
 
 import alchemylogo from "./alchemylogo.svg";
 import BookList from "./components/BookList.js";
@@ -15,10 +15,6 @@ const HelloWorld = () => {
 
   //called only once
   useEffect(() => {
-    async function fetchMessage() {
-      await loadCurrentMessage();
-    }
-    fetchMessage();
     addSmartContractListener();
 
     async function fetchWallet() {

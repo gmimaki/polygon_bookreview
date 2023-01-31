@@ -10,11 +10,6 @@ export const helloWorldContract = new web3.eth.Contract(
 	contractAddress
 );
 
-export const loadCurrentMessage = async () => { 
-	const message = await helloWorldContract
-	console.log(message)
-};
-
 export const connectWallet = async () => {
 	if (window.ethereum) {
 		try {

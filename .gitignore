@@ -4,6 +4,8 @@ coverage
 coverage.json
 typechain
 typechain-types
+client/src/contract-abi.json
+client/src/.env
 
 # Hardhat files
 cache

@@ -1,15 +1,9 @@
-import React, { useMemo } from "react";
+import React from "react";
 import { useEffect, useState } from "react";
-import {
-  helloWorldContract,
-  connectWallet,
-  updateMessage,
-  loadCurrentMessage,
-  getCurrentWalletConnected,
-  getBooks,
-} from "./util/interact.js";
+import {helloWorldContract, connectWallet, updateMessage, getCurrentWalletConnected} from "./util/interact.js";
 
 import alchemylogo from "./alchemylogo.svg";
+import BookList from "./components/BookList.js";
 
 const HelloWorld = () => {
   //state variables
@@ -18,14 +12,9 @@ const HelloWorld = () => {
   const [message, setMessage] = useState("No connection to the network."); //default message
   const [newBookName, setNewBookName] = useState("");
   const [newAuthorName, setNewAuthorName] = useState("");
-  const [books, setBooks] = useState([])
 
   //called only once
   useEffect(() => {
-    async function fetchMessage() {
-      await loadCurrentMessage();
-    }
-    fetchMessage();
     addSmartContractListener();
 
     async function fetchWallet() {
@@ -35,12 +24,6 @@ const HelloWorld = () => {
     }
     fetchWallet();
     addWalletListener();
-
-    async function fetchBooks() {
-      const books = await getBooks();
-      setBooks(books)
-    }
-    fetchBooks();
   }, []);
 
   function addSmartContractListener() {
@@ -91,19 +74,11 @@ const HelloWorld = () => {
     setStatus(status);
   };
 
-  const booksElm = useMemo(() => {
-    return books.map(b => {
-      return (
-        <>
-          <li>{b.name} ({b.author})</li>
-        </>
-      )
-    })
-  }, [books])
-
+  
   //the UI of our component
   return (
-    <div id="container">
+    <>
+      <div id="container">
       <img id="logo" src={alchemylogo}></img>
       <button id="walletButton" onClick={connectWalletPressed}>
         {walletAddress.length > 0 ? (
@@ -131,6 +106,9 @@ const HelloWorld = () => {
         <button id="publish" onClick={onUpdatePressed}>Register</button>
       </div>
     </div>
+
+    <BookList />
+    </>
   );
 };
 

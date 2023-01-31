@@ -5,12 +5,6 @@ const web3 = createAlchemyWeb3(alchemyKey);
 const contractABI = require("../contract-abi.json");
 const contractAddress = process.env.REACT_APP_CONTRACT_ADDRESS;
 
-declare global {
-	interface Window {
-		ethereum: any
-	}
-}
-
 export const helloWorldContract = new web3.eth.Contract(
 	contractABI.abi,
 	contractAddress

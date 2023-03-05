@@ -6,8 +6,8 @@ typechain
 typechain-types
 client/src/contract-abi.json
 client/src/.env
+go_client/.env
 
 # Hardhat files
 cache
 artifacts
-

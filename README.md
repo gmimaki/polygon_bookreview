@@ -13,4 +13,12 @@ npx hardhat run scripts/deploy.js
 ```
 
 # メモ
-# デプロイ: npx hardhat run scripts/deploy.js --network mumbai
+
+-  デプロイ: npx hardhat run scripts/deploy.js --network mumbai
+- GoとContactの接続: https://goethereumbook.org/smart-contract-compile/
+
+```go
+solc --abi BookReview.sol
+solc --bin BookReview.sol
+abigen --bin=BookReview_sol_BookReview.bin --abi=BookReview_sol_BookReview.abi --pkg=store --out=BookReview.go
+```
